@@ -1,8 +1,8 @@
 Type: Package
 Package: tinyVAST
 Title: Multivariate Spatio-Temporal Models using Structural Equations
-Version: 1.0.0
-Date: 2025-03-10
+Version: 1.0.1
+Date: 2025-03-18
 Authors@R: c(
     person(c("James", "T."), "Thorson", , "James.Thorson@noaa.gov", 
 	   role = c("aut", "cre"),
@@ -38,9 +38,9 @@ RoxygenNote: 7.3.2
 URL: https://vast-lib.github.io/tinyVAST/
 BugReports: https://github.com/vast-lib/tinyVAST/issues
 NeedsCompilation: yes
-Packaged: 2025-03-10 17:36:28 UTC; James.Thorson
+Packaged: 2025-03-20 22:56:06 UTC; James.Thorson
 Author: James T. Thorson [aut, cre] (<https://orcid.org/0000-0001-7415-1010>),
   Sean C. Anderson [aut] (<https://orcid.org/0000-0001-9563-1937>)
 Maintainer: James T. Thorson <James.Thorson@noaa.gov>
 Repository: CRAN
-Date/Publication: 2025-03-13 12:40:02 UTC
+Date/Publication: 2025-03-21 06:10:02 UTC

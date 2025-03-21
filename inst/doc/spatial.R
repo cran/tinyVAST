@@ -23,7 +23,7 @@ library(ggplot2)
 set.seed(101)
 options("tinyVAST.verbose" = FALSE)
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----simulate_data, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # Simulate a 2D AR1 spatial process with a cyclic confounder w
 n_x = n_y = 25
 n_w = 10
@@ -40,14 +40,14 @@ Data$n = Data$z + rnorm(nrow(Data), sd=1)
 Data$var = "density"
 Data$time = 2020
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----make_mesh, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # make mesh
 mesh = fm_mesh_2d( Data[,c('x','y')], cutoff = 2 )
 
 # Plot it
 plot(mesh)
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----fit_tinyVAST, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # Define sem, with just one variance for the single variable
 sem = "
   density <-> density, spatial_sd
@@ -60,7 +60,7 @@ out = tinyVAST( data = Data,
            control = tinyVASTcontrol(getsd=FALSE),
            space_term = sem)
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----calculate_total, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # Predicted sample-weighted total
 integrate_output(out, newdata = out$data)
 # integrate_output(out, apply.epsilon=TRUE )
@@ -69,27 +69,27 @@ integrate_output(out, newdata = out$data)
 # True (latent) sample-weighted total
 sum( Data$z )
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----show_deviance_explained, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # Percent deviance explained
 out$deviance_explained
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----run_gam, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 start_time = Sys.time()
 mygam = gam( n ~ s(w) + s(x,y), data=Data ) #
 Sys.time() - start_time
 summary(mygam)$dev.expl
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----run_reduced_tinyVAST, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 out_reduced = tinyVAST( data = Data,
                         formula = n ~ s(w) + s(x,y) )
 
 # Extract PDE for GAM-style spatial smoother in tinyVAST
 out_reduced$deviance_explained
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----show_predict, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 predict(out, newdata=data.frame(x=1, y=1, time=1, w=1, var="density") )
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----show_image, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # Prediction grid
 pred = outer( seq(1,n_x,len=51),
               seq(1,n_y,len=51),
@@ -99,7 +99,7 @@ image( x=seq(1,n_x,len=51), y=seq(1,n_y,len=51), z=pred, main="Predicted respons
 # True value
 image( x=1:n_x, y=1:n_y, z=matrix(Data$z,ncol=n_y), main="True response" )
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----show_partial, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # compute partial dependence plot
 Partial = partial( object = out,
                    pred.var = "w",
@@ -110,10 +110,10 @@ Partial = partial( object = out,
 # Lattice plots as default option
 plotPartial( Partial )
 
-## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
+## ----show_ggplot, eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6----
 # create new data frame
 newdata <- data.frame(w = seq(min(Data$w), max(Data$w), length.out = 100))
-newdata = cbind( newdata, 'x'=13, 'y'=13, 'var'='n' )
+newdata = cbind( newdata, 'x'=13, 'y'=13, 'var'='density', 'time'=2020 )
 
 # make predictions
 p <- predict( out, newdata=newdata, se.fit=TRUE, what="p_g" )
