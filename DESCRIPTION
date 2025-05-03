@@ -1,8 +1,8 @@
 Type: Package
 Package: tinyVAST
 Title: Multivariate Spatio-Temporal Models using Structural Equations
-Version: 1.0.1
-Date: 2025-03-18
+Version: 1.1.0
+Date: 2025-05-02
 Authors@R: c(
     person(c("James", "T."), "Thorson", , "James.Thorson@noaa.gov", 
 	   role = c("aut", "cre"),
@@ -24,10 +24,10 @@ License: GPL-3
 Depends: R (>= 4.1.0)
 Imports: corpcor, fmesher, igraph, Matrix (>= 1.3.0), methods, mgcv,
         sem, sf, sfnetworks, TMB (>= 1.9.17), units, checkmate, abind,
-        sdmTMB
-Suggests: dsem (>= 1.1.0), ggplot2, knitr, lattice, mvtnorm, pdp,
-        rmarkdown, rnaturalearth, rnaturalearthdata, testthat, tweedie,
-        viridisLite, visreg, plyr, DHARMa, glmmTMB, tibble
+        sdmTMB, dsem (>= 1.6.0), insight, cv
+Suggests: ggplot2, knitr, lattice, mvtnorm, pdp, rmarkdown,
+        rnaturalearth, rnaturalearthdata, testthat, tweedie,
+        viridisLite, visreg, plyr, DHARMa, glmmTMB, tibble,
 LinkingTo: RcppEigen, TMB
 VignetteBuilder: knitr
 Config/testthat/edition: 3
@@ -38,9 +38,10 @@ RoxygenNote: 7.3.2
 URL: https://vast-lib.github.io/tinyVAST/
 BugReports: https://github.com/vast-lib/tinyVAST/issues
 NeedsCompilation: yes
-Packaged: 2025-03-20 22:56:06 UTC; James.Thorson
-Author: James T. Thorson [aut, cre] (<https://orcid.org/0000-0001-7415-1010>),
-  Sean C. Anderson [aut] (<https://orcid.org/0000-0001-9563-1937>)
+Packaged: 2025-05-03 01:15:42 UTC; James.Thorson
+Author: James T. Thorson [aut, cre] (ORCID:
+    <https://orcid.org/0000-0001-7415-1010>),
+  Sean C. Anderson [aut] (ORCID: <https://orcid.org/0000-0001-9563-1937>)
 Maintainer: James T. Thorson <James.Thorson@noaa.gov>
 Repository: CRAN
-Date/Publication: 2025-03-21 06:10:02 UTC
+Date/Publication: 2025-05-03 02:40:02 UTC

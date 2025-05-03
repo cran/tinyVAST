@@ -34,8 +34,8 @@ legend( "bottomleft", bty="n",
         fill = rainbow(3) )
 
 ## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
-#
-family = list(
+# Define link and distribution for each data type
+Family = list(
    "Encounter" = binomial(link="cloglog"),
    "Count" = poisson(link="log"),
    "Biomass_KG" = tweedie(link="log")
@@ -64,7 +64,7 @@ fit = tinyVAST( data = red_snapper,
                 spatial_domain = mesh,
                 time_column = "Year",
                 distribution_column = "Data_type",
-                family = family,
+                family = Family,
                 variable_column = "var" )
 
 ## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------

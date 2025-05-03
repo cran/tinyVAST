@@ -346,7 +346,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><a href="#bivariate-generalized-linear-mixed-model-structure" id="toc-bivariate-generalized-linear-mixed-model-structure">Bivariate
 generalized linear mixed model structure</a></li>
 <li><a href="#spatial-domains" id="toc-spatial-domains">Spatial
-domains</a></li>
+domains</a>
+<ul>
+<li><a href="#stochastic-partial-differentiaul-equation-spde" id="toc-stochastic-partial-differentiaul-equation-spde">Stochastic
+partial differentiaul equation (SPDE)</a></li>
+<li><a href="#simultaneous-autoregressive-sar" id="toc-simultaneous-autoregressive-sar">Simultaneous autoregressive
+(SAR):</a></li>
+<li><a href="#stream-networks-using-a-tail-down-exponential-correlation-function" id="toc-stream-networks-using-a-tail-down-exponential-correlation-function">Stream
+networks using a tail-down exponential correlation function</a></li>
+</ul></li>
 <li><a href="#structural-equation-models" id="toc-structural-equation-models">Structural equation models</a></li>
 <li><a href="#dynamic-structural-equation-models" id="toc-dynamic-structural-equation-models">Dynamic structural equation
 models</a></li>
@@ -503,46 +511,68 @@ precision matrix <span class="math inline">\(\mathbf Q_{\mathrm{domain}}
 = \mathbf\Sigma^{-1}\)</span> as the inverse of the spatial covariance
 matrix. tinyVAST involves three options for specifying this spatial
 precision:</p>
-<ul>
-<li>Stochastic partial differentiaul equation (SPDE): The analyst can
-approximate spatial variation over a continuous two-dimensional surface
-by constructing finite element mesh (FEM), treating the value at
-vertices as a GMRF, and then using bilinear interpolation (i.e., a
-piecewise linear approximation) to interpolate from vertices to the
-spatial domain. In this case, the precision is constructred as:</li>
-</ul>
+<div id="stochastic-partial-differentiaul-equation-spde" class="section level3">
+<h3>Stochastic partial differentiaul equation (SPDE)</h3>
+<p>The analyst can approximate spatial variation over a continuous
+two-dimensional surface by constructing finite element mesh (FEM),
+treating the value at vertices as a GMRF, and then using bilinear
+interpolation (i.e., a piecewise linear approximation) to interpolate
+from vertices to the spatial domain. In this case, the precision is
+constructred as:</p>
 <p><span class="math display">\[
 \mathbf Q_{\mathrm{domain}} = \tau^2 ( \kappa^4 \mathbf M_{\mathrm 0} +
 2\kappa^2 \mathbf M_{\mathrm 1} + \mathbf M_{\mathrm 2} )
 \]</span> where every row <span class="math inline">\(\mathbf
 A_i\)</span> of the interpolation matrix <span class="math inline">\(\mathbf A\)</span> is nonzero for only the three
 vertices of the triangle that contains sample <span class="math inline">\(i\)</span></p>
-<ul>
-<li>Simultaneous autoregressive (SAR): Alternatively, the analyst can
-specify an areal model representing the value within spatial
-strata:</li>
-</ul>
+</div>
+<div id="simultaneous-autoregressive-sar" class="section level3">
+<h3>Simultaneous autoregressive (SAR):</h3>
+<p>Alternatively, the analyst can specify an areal model representing
+the value within spatial strata:</p>
 <p><span class="math display">\[
 \mathbf Q_{\mathrm{domain}} = \tau^2 (\mathbf I - \kappa \mathbf A^*)^2
 \]</span> where <span class="math inline">\(\mathbf A^*\)</span> is the
-adjacency matrix of the graph specified by the analyst, and each row
-<span class="math inline">\(\mathbf A_i\)</span> of interpolation matrix
-<span class="math inline">\(\mathbf A\)</span> is nonzero only for the
-single spatial stratum containing sample <span class="math inline">\(i\)</span> (and noting that adjacency matrix <span class="math inline">\(\mathbf A^*\)</span> is different from
-interpolation matrix <span class="math inline">\(\mathbf A\)</span>, but
-we use the same notation for both due to a collision in notational
-standards).</p>
-<ul>
-<li>Stream networks: Finally, the analyst can specify that sites are
-partially correlated if they are adjacent along a stream network (while
-ignoring flow direction). This results in an Onstein-Uhlenbeck process
-along the stream network, or an <em>exponential tail-down</em>
-model.</li>
-</ul>
-<p>For each spatial domain, the term <span class="math inline">\(\tau\)</span> is defined such that precision <span class="math inline">\(\mathbf Q_{\mathrm{domain}}\)</span> has unit
+adjacency matrix of the graph specified by the analyst, <span class="math inline">\(\kappa\)</span> is the estimated partial
+correlation between adjacent areas, and each row <span class="math inline">\(\mathbf A_i\)</span> of interpolation matrix <span class="math inline">\(\mathbf A\)</span> is nonzero only for the single
+spatial stratum containing sample <span class="math inline">\(i\)</span>
+(and noting that adjacency matrix <span class="math inline">\(\mathbf
+A^*\)</span> is different from interpolation matrix <span class="math inline">\(\mathbf A\)</span>, but we use the same notation
+for both due to a collision in notational standards).</p>
+</div>
+<div id="stream-networks-using-a-tail-down-exponential-correlation-function" class="section level3">
+<h3>Stream networks using a tail-down exponential correlation
+function</h3>
+<p>Finally, the analyst can specify that sites are partially correlated
+if they are adjacent along a stream network (while ignoring flow
+direction). This results in an Onstein-Uhlenbeck process along the
+stream network, or an <em>exponential tail-down</em> model:</p>
+<p><span class="math display">\[
+\mathbf{Q}_{\mathrm{domain}} = \mathbf{(I+D-P)}^T \mathbf{I+D}^{-1}
+\mathbf{(I+D-P)}
+\]</span> where <span class="math inline">\(\mathbf D\)</span> is a
+sparse diagonal matrix with diagonal elements</p>
+<p><span class="math display">\[
+d_{i,j} =\mathrm{exp}(-2 \theta |\mathbf s_i, \mathbf s_j|) / (1 -
+\mathrm{exp}(-2 \theta |\mathbf s_i, \mathbf s_j|))
+\]</span> where <span class="math inline">\(|\mathbf s_i, \mathbf
+s_j|\)</span> is the distance from downstream (parent) node <span class="math inline">\(j\)</span> to upstream (child) node <span class="math inline">\(i\)</span>, and <span class="math inline">\(\theta\)</span> is the O-U parameter governing the
+decorrelation rate. Similarly, <span class="math inline">\(\mathbf
+P\)</span> is a sparse matrix containing values <span class="math inline">\(\rho_{i,j}\)</span>, where: <span class="math display">\[
+\rho_{i,j} = \mathrm{exp}(-\theta |\mathbf s_i, \mathbf s_j|) / (1 -
+\mathrm{exp}(-2 \theta |\mathbf s_i, \mathbf s_j|))
+\]</span> such that <span class="math inline">\(\rho_{i,j}\)</span> the
+regression slope predicting upstream node <span class="math inline">\(i\)</span> from downstream node <span class="math inline">\(j\)</span>. The spatial interpolation matrix <span class="math inline">\(\mathbf A\)</span> again has row <span class="math inline">\(\mathbf A_i\)</span> for each sampling or
+predictive location, and <span class="math inline">\(\mathbf
+A_i\)</span> is nonzero for the two nodes immediately up and downstream
+from a given location, with values such that a given location is
+predicted as a weighted average based upon the distance from those two
+nodes.</p>
+<p>For the SPDE and SAR spatial domains, the term <span class="math inline">\(\tau\)</span> is defined such that precision <span class="math inline">\(\mathbf Q_{\mathrm{domain}}\)</span> has unit
 variance. This is done because the spatial domain always arises in
 combination with other parameters, which are used to define the variance
 of the associated spatial variable.</p>
+</div>
 </div>
 <div id="structural-equation-models" class="section level1">
 <h1>Structural equation models</h1>

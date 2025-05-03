@@ -372,8 +372,8 @@ data, so that the linear predictor is proportional to numerical density
 for each data type. See <a href="https://doi.org/10.1093/icesjms/fsz075">Gruss and Thorson
 (2019)</a> or <a href="https://doi.org/10.1201/9781003410294">Thorson
 and Kristensen (2024) Chap-7</a> for more details</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>family <span class="ot">=</span> <span class="fu">list</span>(</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Define link and distribution for each data type</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>Family <span class="ot">=</span> <span class="fu">list</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>   <span class="st">&quot;Encounter&quot;</span> <span class="ot">=</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;cloglog&quot;</span>),</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>   <span class="st">&quot;Count&quot;</span> <span class="ot">=</span> <span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>),</span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>   <span class="st">&quot;Biomass_KG&quot;</span> <span class="ot">=</span> <span class="fu">tweedie</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>)</span>
@@ -401,7 +401,7 @@ and Kristensen (2024) Chap-7</a> for more details</p>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>                <span class="at">spatial_domain =</span> mesh,</span>
 <span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>                <span class="at">time_column =</span> <span class="st">&quot;Year&quot;</span>,</span>
 <span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>                <span class="at">distribution_column =</span> <span class="st">&quot;Data_type&quot;</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>                <span class="at">family =</span> family,</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>                <span class="at">family =</span> Family,</span>
 <span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>                <span class="at">variable_column =</span> <span class="st">&quot;var&quot;</span> )</span></code></pre></div>
 <p>We then plot density estimates for each year:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># make extrapolation-grid</span></span>

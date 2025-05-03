@@ -378,7 +378,7 @@ autoregressive model for wolf and moose abundance on Isle Royale.</p>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt;         2:3]))</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; Run time: </span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.3489952 secs</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.343663 secs</span></span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; Family: </span></span>
 <span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; $obs</span></span>
@@ -578,14 +578,14 @@ autoregressive model for wolf and moose abundance on Isle Royale.</p>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Keep in wide-form</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>dsem_data <span class="ot">=</span> <span class="fu">ts</span>( <span class="fu">log</span>(isle_royale[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]), <span class="at">start=</span><span class="dv">1959</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>family <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>Family <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;normal&quot;</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># fit without delta0</span></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># SEs aren&#39;t available because measurement errors goes to zero</span></span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>mydsem <span class="ot">=</span> dsem<span class="sc">::</span><span class="fu">dsem</span>( <span class="at">sem =</span> dsem,</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>             <span class="at">tsdata =</span> dsem_data,</span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>             <span class="at">control =</span> <span class="fu">dsem_control</span>(<span class="at">getsd=</span><span class="cn">FALSE</span>),</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>             <span class="at">family =</span> family )</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>             <span class="at">family =</span> Family )</span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;   Coefficient_name Number_of_coefficients   Type</span></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 1           beta_z                      7  Fixed</span></span>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 2        lnsigma_j                      2  Fixed</span></span>
