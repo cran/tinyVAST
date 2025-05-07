@@ -412,7 +412,7 @@ spatial domain</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>start_time <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>mygam <span class="ot">=</span> <span class="fu">gam</span>( n <span class="sc">~</span> <span class="fu">s</span>(w) <span class="sc">+</span> <span class="fu">s</span>(x,y), <span class="at">data=</span>Data ) <span class="co">#</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> start_time</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.02969909 secs</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.02750921 secs</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">summary</span>(mygam)<span class="sc">$</span>dev.expl</span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [1] 0.3517756</span></span></code></pre></div>
 <p>where this comparison shows that using the SPDE method in tinyVAST
