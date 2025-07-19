@@ -144,6 +144,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 
 
 
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 <style type="text/css">body {
 background-color: #fff;
@@ -361,6 +383,11 @@ models</a></li>
 <li><a href="#spatial-interactions-for-sem-and-dsem" id="toc-spatial-interactions-for-sem-and-dsem">Spatial interactions for
 SEM and DSEM</a></li>
 <li><a href="#generalized-additive-model" id="toc-generalized-additive-model">Generalized additive model</a></li>
+<li><a href="#spatially-varying-coefficients" id="toc-spatially-varying-coefficients">Spatially varying
+coefficients</a></li>
+<li><a href="#notation-summary" id="toc-notation-summary">Notation
+summary</a></li>
+<li><a href="#works-cited" id="toc-works-cited">Works cited</a></li>
 </ul>
 </div>
 
@@ -368,9 +395,10 @@ SEM and DSEM</a></li>
 <!-- math nonitalic -->
 <div id="bivariate-generalized-linear-mixed-model-structure" class="section level1">
 <h1>Bivariate generalized linear mixed model structure</h1>
-<p>tinyVAST is a bivariate extension of a generalized linear mixed model
-(see Tables 1 and 2 for notation), which includes two linear predictors
-that each include four additive components:</p>
+<p>tinyVAST <span class="citation">(J. T. Thorson et al. 2025)</span> is
+a bivariate extension of a generalized linear mixed model (see Tables 1
+and 2 for notation), which includes two linear predictors that each
+include four additive components:</p>
 <ol style="list-style-type: decimal">
 <li><p><em>Spatial interactions among variables</em>: The user can
 specify interactions among variables at a given site (or for spatially
@@ -395,16 +423,20 @@ from different methods for parameter estimation;</p></li>
 \begin{aligned}
 p_{\mathrm 1,i} &amp;= \underbrace{\mathbf X_{\mathrm 1,i}
 \mathbf\alpha_{\mathrm 1} + \mathbf Z_{\mathrm 1,i}
-\mathbf\gamma_{\mathrm 1}}_\text{GAM} + \underbrace{\mathbf A_{i}
+\mathbf\gamma_{\mathrm 1}}_\text{formula} + \underbrace{\mathbf A_{i}
 \mathbf\Omega_{\mathrm 1,c[i]}}_\text{space_term} + \underbrace{\mathbf
 D_{\mathrm 1,c[i],t[i]}}_\text{time_term} + \underbrace{\mathbf A_i
-\mathbf E_{\mathrm 1,c[i],t[i]}}_\text{spacetime_term}  \\
+\mathbf E_{\mathrm 1,c[i],t[i]}}_\text{spacetime_term} +
+\underbrace{\mathbf W_{\mathrm 1,i} (\mathbf A_{i} \mathbf\Xi_{\mathrm
+1})^{\mathrm T} }_\text{spatially_varying}  \\
 p_{\mathrm 2,i} &amp;= \underbrace{\mathbf X_{\mathrm 2,i}
 \mathbf\alpha_{\mathrm 2} + \mathbf Z_{\mathrm 2,i}
-\mathbf\gamma_{\mathrm 2}}_\text{GAM} + \underbrace{\mathbf A_{i}
+\mathbf\gamma_{\mathrm 2}}_\text{formula} + \underbrace{\mathbf A_{i}
 \mathbf\Omega_{\mathrm 2,c[i]}}_\text{space_term} + \underbrace{\mathbf
 D_{\mathrm 2,c[i],t[i]}}_\text{time_term} + \underbrace{\mathbf A_i
-\mathbf E_{\mathrm 2,c[i],t[i]}}_\text{spacetime_term}
+\mathbf E_{\mathrm 2,c[i],t[i]}}_\text{spacetime_term} +
+\underbrace{\mathbf W_{\mathrm 2,i} (\mathbf A_{i} \mathbf\Xi_{\mathrm
+2})^{\mathrm T} }_\text{spatially_varying}
 \end{aligned}
 \]</span></p>
 <p>where</p>
@@ -413,7 +445,9 @@ D_{\mathrm 2,c[i],t[i]}}_\text{time_term} + \underbrace{\mathbf A_i
 linear predictor;</li>
 <li><span class="math inline">\(\mathbf X_{\mathrm 1,i}
 \mathbf\alpha_{\mathrm 1} + \mathbf Z_{\mathrm 1,i}
-\mathbf\gamma_{\mathrm 1}\)</span> is the GAM component</li>
+\mathbf\gamma_{\mathrm 1}\)</span> is the contribution of the GAM
+component specified using a formula parsed by package
+<code>mgcv</code>;</li>
 <li><span class="math inline">\(\mathbf\alpha_{\mathrm 1}\)</span> is
 the GAM fixed effects with associated design matrix <span class="math inline">\(\mathbf X_{\mathrm 1}\)</span>, where <span class="math inline">\(\mathbf X_{\mathrm 1,i}\)</span> is the row of the
 design matrix for sample <span class="math inline">\(i\)</span>;</li>
@@ -421,20 +455,24 @@ design matrix for sample <span class="math inline">\(i\)</span>;</li>
 the GAM random effects with associated design matrix <span class="math inline">\(\mathbf Z\)</span>, where <span class="math inline">\(\mathbf Z_{\mathrm 1,i}\)</span> is the row of the
 design matrix;</li>
 <li><span class="math inline">\(\mathbf A_{i} \mathbf\Omega_{\mathrm
-1,c[i]}\)</span> is the projection of the space-veriable interaction
-<span class="math inline">\(\mathbf\Omega\)</span> to sample <span class="math inline">\(i\)</span>, where <span class="math inline">\(\mathbf A\)</span> is the interpolation matrix
+1,c[i]}\)</span> is contribution of the space-veriable interaction <span class="math inline">\(\mathbf\Omega\)</span> projected to sample <span class="math inline">\(i\)</span>, where <span class="math inline">\(\mathbf A\)</span> is the interpolation matrix
 with dimension <span class="math inline">\(I \times S\)</span> such that
 row <span class="math inline">\(\mathbf A_{i}\)</span> interpolates
 spatial vector <span class="math inline">\(\mathbf\Omega_{\mathrm
 1,c[i]}\)</span> for sample <span class="math inline">\(i\)</span> and
 variable <span class="math inline">\(c[i]\)</span>;</li>
 <li><span class="math inline">\(\mathbf D_{\mathrm 1,c[i],t[i]}\)</span>
-is the time-variable interaction <span class="math inline">\(\mathbf
-D\)</span> for sample <span class="math inline">\(i\)</span>;</li>
+is the contribution of the time-variable interaction <span class="math inline">\(\mathbf D\)</span> for sample <span class="math inline">\(i\)</span>;</li>
 <li><span class="math inline">\(\mathbf A_i \mathbf E_{\mathrm
-1,c[i],t[i]}\)</span> is the projection of the space-variable-time
-interaction <span class="math inline">\(\mathbf E\)</span> to sample
-<span class="math inline">\(i\)</span>;</li>
+1,c[i],t[i]}\)</span> is the contribution of the space-variable-time
+interaction <span class="math inline">\(\mathbf E\)</span> projected to
+sample <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(\mathbf W_{\mathrm 1,i} \mathbf A_{i}
+\mathbf\Xi_{\mathrm 1,c[i]}\)</span> is the contribution of spatially
+varying coefficients, i.e., a zero-centered and spatially varying slope
+<span class="math inline">\(\Xi_{\mathrm 1,c[i]}\)</span> that is
+projected to the location of samples, where these local slopes are then
+multiplied by user-supplied covariates in design matrix <span class="math inline">\(W_{\mathrm 1,i}\)</span></li>
 </ul>
 <p>and terms are defined similarly for the second linear predictor <span class="math inline">\(p_{\mathrm 2,i}\)</span> except using subscript-2.
 The linear predictors are then passed through a bivariate inverse-link
@@ -482,11 +520,11 @@ rates:</p>
 \mu_{\mathrm 2,i} &amp;= e^{p_{\mathrm 2,i}}
 \end{aligned}
 \]</span></p>
-<p>while for the Poisson-linked link function we specify a complemetary
-log-log link for encounter probabilities and define the second link
-function such that <span class="math inline">\(\mu_{\mathrm 1,i}
-\mu_{\mathrm 2,i} = e^{p_{\mathrm 1,i}} e^{p_{\mathrm
-2,i}}\)</span>:</p>
+<p>while for the Poisson-linked link function <span class="citation">(J.
+T. Thorson 2018)</span> we specify a complemetary log-log link for
+encounter probabilities and define the second link function such that
+<span class="math inline">\(\mu_{\mathrm 1,i} \mu_{\mathrm 2,i} =
+e^{p_{\mathrm 1,i}} e^{p_{\mathrm 2,i}}\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \mu_{\mathrm 1,i} &amp;= 1 - e^{-e^{p_{\mathrm 1,i}}} \\
@@ -501,6 +539,11 @@ is the encounter probability (and is fitted with a Bernoulli
 distribution), while <span class="math inline">\(\mu_{\mathrm
 2,i}\)</span> is the central tendancy for positive values, i.e., <span class="math inline">\(\mu_{\mathrm 2,i} = \mathbb{E}(Y |
 Y&gt;0)\)</span>.</p>
+<p>Usefully, the interface allows analysts to specify a different
+distribution <span class="math inline">\(e_i\)</span> for different
+partitions of the data. This allows the model to jointly analyze
+different data types <span class="citation">(Grüss and Thorson
+2019)</span>, or data with different magnitudes of sampling error.</p>
 </div>
 <div id="spatial-domains" class="section level1">
 <h1>Spatial domains</h1>
@@ -509,7 +552,8 @@ These variables are treated as Gaussian Markov random fields (GMRFs),
 and evaluating the probability density of GMRFs involves calculating the
 precision matrix <span class="math inline">\(\mathbf Q_{\mathrm{domain}}
 = \mathbf\Sigma^{-1}\)</span> as the inverse of the spatial covariance
-matrix. tinyVAST involves three options for specifying this spatial
+matrix <span class="citation">(J. Thorson and Kristensen 2024)</span>.
+tinyVAST involves three options for specifying this spatial
 precision:</p>
 <div id="stochastic-partial-differentiaul-equation-spde" class="section level3">
 <h3>Stochastic partial differentiaul equation (SPDE)</h3>
@@ -517,8 +561,12 @@ precision:</p>
 two-dimensional surface by constructing finite element mesh (FEM),
 treating the value at vertices as a GMRF, and then using bilinear
 interpolation (i.e., a piecewise linear approximation) to interpolate
-from vertices to the spatial domain. In this case, the precision is
-constructred as:</p>
+from vertices to the spatial domain. This method was developed by <span class="citation">(F. Lindgren, Rue, and Lindström 2011)</span>, as
+popularized in the software R-INLA <span class="citation">(Lindgren
+2012)</span>, first implemented in TMB by <span class="citation">(J. T.
+Thorson et al. 2014)</span>, and using elements constructed by R-package
+<code>fmesher</code> <span class="citation">(F. Lindgren 2023)</span>.
+In this case, the precision is constructed as:</p>
 <p><span class="math display">\[
 \mathbf Q_{\mathrm{domain}} = \tau^2 ( \kappa^4 \mathbf M_{\mathrm 0} +
 2\kappa^2 \mathbf M_{\mathrm 1} + \mathbf M_{\mathrm 2} )
@@ -528,8 +576,10 @@ vertices of the triangle that contains sample <span class="math inline">\(i\)</s
 </div>
 <div id="simultaneous-autoregressive-sar" class="section level3">
 <h3>Simultaneous autoregressive (SAR):</h3>
-<p>Alternatively, the analyst can specify an areal model representing
-the value within spatial strata:</p>
+<p>Alternatively, the analyst can apply a simultaneous autoregressive
+process <span class="citation">(Ver Hoef, Hanks, and Hooten
+2018)</span>, specifying an areal model that represents the value within
+spatial strata:</p>
 <p><span class="math display">\[
 \mathbf Q_{\mathrm{domain}} = \tau^2 (\mathbf I - \kappa \mathbf A^*)^2
 \]</span> where <span class="math inline">\(\mathbf A^*\)</span> is the
@@ -546,7 +596,8 @@ function</h3>
 <p>Finally, the analyst can specify that sites are partially correlated
 if they are adjacent along a stream network (while ignoring flow
 direction). This results in an Onstein-Uhlenbeck process along the
-stream network, or an <em>exponential tail-down</em> model:</p>
+stream network <span class="citation">(Charsley et al. 2023)</span>, or
+an <em>exponential tail-down</em> model:</p>
 <p><span class="math display">\[
 \mathbf{Q}_{\mathrm{domain}} = \mathbf{(I+D-P)}^T \mathbf{I+D}^{-1}
 \mathbf{(I+D-P)}
@@ -587,8 +638,9 @@ allowing predictions about the consequence of counterfactual changes to
 the system.</li>
 </ol>
 <p>To specify a SEM, the user uses <em>arrow notation</em> derived from
-package <code>sem</code>. For example, to specify a linear model this
-involves:</p>
+package <code>sem</code> <span class="citation">(Fox 2006)</span>, as
+described in TMB by <span class="citation">(J. Thorson and Kristensen
+2024)</span>. For example, to specify a linear model this involves:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>w1 <span class="ot">-&gt;</span> w2, b_12</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>w1 <span class="ot">&lt;-</span><span class="er">&gt;</span> w1, sd_1</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>w2 <span class="ot">&lt;-</span><span class="er">&gt;</span> w2, sd_2</span></code></pre></div>
@@ -655,9 +707,9 @@ model.</p>
 <div id="dynamic-structural-equation-models" class="section level1">
 <h1>Dynamic structural equation models</h1>
 <p>Similarly, tinyVAST involves specifying dynamic structural equation
-models (DSEM). To specify a DSEM, the user uses <em>arrow-and-lag
-notation</em>. For example, to specify a univariate first-order
-autoregressive process:</p>
+models (DSEM) <span class="citation">(J. T. Thorson et al. 2024)</span>.
+To specify a DSEM, the user uses <em>arrow-and-lag notation</em>. For
+example, to specify a univariate first-order autoregressive process:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>w1 <span class="ot">-&gt;</span> w1, <span class="dv">1</span>, rho, <span class="fl">0.8</span></span></code></pre></div>
 <p>If there were four time-intervals (<span class="math inline">\(T=4\)</span>) this would then result in the path
 matrix:</p>
@@ -710,12 +762,17 @@ Q_{\mathrm{space\_term}} \otimes \mathbf Q_{\mathrm{domain}})
 <p>where the precision matrix <span class="math inline">\(\mathbf
 Q_{\mathrm{space\_term}} \otimes \mathbf Q_{\mathrm{domain}}\)</span>
 has dimension <span class="math inline">\(SC \times SC\)</span>, to
-match the length of <span class="math inline">\(\mathrm{vec}(\mathbf\Omega)\)</span>.</p>
+match the length of <span class="math inline">\(\mathrm{vec}(\mathbf\Omega)\)</span>. This
+specification generalizes spatial factor analysis <span class="citation">(Thorson et al. 2015)</span> and spatial dynamic factor
+analysis <span class="citation">(J. T. Thorson et al. 2016)</span>.</p>
 </div>
 <div id="generalized-additive-model" class="section level1">
 <h1>Generalized additive model</h1>
-<p>Finally, the analyst can specify a generalized additive model using
-syntax from package mgcv. For example this might involve:</p>
+<p>The analyst can specify a generalized additive model using syntax
+from package <code>mgcv</code> <span class="citation">(Wood
+2006)</span>, and parsed into TMB using an interface developed by
+<code>sdmTMB</code> <span class="citation">(Anderson et al.
+n.d.)</span>. For example this might involve:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>count <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">offset</span>(log_area) <span class="sc">+</span> <span class="fu">s</span>(depth) <span class="sc">+</span> <span class="fu">s</span>(species, <span class="at">bs=</span><span class="st">&quot;re&quot;</span>)</span></code></pre></div>
 <p>If <code>year</code> and <code>species</code> are factors and
 <code>depth</code> and <code>log_area</code> are continuous, then this
@@ -734,6 +791,30 @@ follow a GMRF:</p>
 \]</span> where <span class="math inline">\(\mathbf
 Q_{\mathrm{gam}}\)</span> is a blockwise diagonal matrix, assembled from
 estimated variance parameters and matrices constructed by mgcv.</p>
+</div>
+<div id="spatially-varying-coefficients" class="section level1">
+<h1>Spatially varying coefficients</h1>
+<p>Finally, the analyst can account for spatial variation in the
+relationship between a specified covariate and the estimated response.
+This is done by specifying a spatially varying coefficient (SVC) <span class="citation">(J. T. Thorson et al. 2023)</span>, and this can be
+used e.g. to account for spatially varying differences in
+catchability/detectability <span class="citation">(Grüss et al.
+2023)</span> or to account for nonlocal impacts of regional
+oceanographic indices <span class="citation">(J. T. Thorson
+2019)</span>. This involves estimating each SVC <span class="math inline">\(l \in \{1,2,...,L\}\)</span> as a zero-centered
+Gaussian Markov random field while estimating its corresponding variance
+<span class="math inline">\(\sigma_{\mathrm{\xi},l}^2\)</span>:</p>
+<p><span class="math display">\[
+\Xi_{\mathrm 1,l} \sim \mathrm{GMRF}( \mathbf 0,
+\sigma_{\mathrm{\xi},l}^{-2} \mathbf Q_{\mathrm{domain}} )
+\]</span></p>
+<p>Any covariate specified as an SVC it is also typically specified in
+the <code>formula</code> to estimate a non-zero mean for the SVC. If the
+estimated variance of the SVC approaches zero, it then suggests that the
+covariate slope does not vary spatially.</p>
+</div>
+<div id="notation-summary" class="section level1">
+<h1>Notation summary</h1>
 <table>
 <caption>Table 1: Subscript notation</caption>
 <thead>
@@ -796,6 +877,140 @@ or in model template code), and descriptions.</caption>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="works-cited" class="section level1 unnumbered">
+<h1 class="unnumbered">Works cited</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-anderson_sdmtmb_nodate" class="csl-entry">
+Anderson, Sean C., Eric J. Ward, Philina A. English, Lewis A. K.
+Barnett, and James T. Thorson. n.d. <span>“<span class="nocase">sdmTMB</span>: <span>An</span> <span>R</span>
+<span>Package</span> for <span>Fast</span>, <span>Flexible</span>, and
+<span>User</span>-<span>Friendly</span> <span>Generalized</span>
+<span>Linear</span> <span>Mixed</span> <span>Effects</span>
+<span>Models</span> with <span>Spatial</span> and
+<span>Spatiotemporal</span> <span>Random</span>
+<span>Fields</span>.”</span> <em>Journal of Open Source Software</em>.
+Accessed March 10, 2025. <a href="https://doi.org/10.1101/2022.03.24.485545">https://doi.org/10.1101/2022.03.24.485545</a>.
+</div>
+<div id="ref-charsley_catchment-scale_2023" class="csl-entry">
+Charsley, Anthony R., Arnaud Grüss, James T. Thorson, Merrill B. Rudd,
+Shannan K. Crow, Bruno David, Erica K. Williams, and Simon D. Hoyle.
+2023. <span>“Catchment-Scale Stream Network Spatio-Temporal Models,
+Applied to the Freshwater Stages of a Diadromous Fish Species, Longfin
+Eel (<span>Anguilla</span> Dieffenbachii).”</span> <em>Fisheries
+Research</em> 259 (March): 106583. <a href="https://doi.org/10.1016/j.fishres.2022.106583">https://doi.org/10.1016/j.fishres.2022.106583</a>.
+</div>
+<div id="ref-fox_structural_2006" class="csl-entry">
+Fox, John. 2006. <span>“Structural Equation Modeling with the Sem
+Package in <span>R</span>.”</span> <em>Structural Equation Modeling-a
+Multidisciplinary Journal</em> 13: 465–86.
+</div>
+<div id="ref-gruss_developing_2019" class="csl-entry">
+Grüss, Arnaud, and James T. Thorson. 2019. <span>“Developing
+Spatio-Temporal Models Using Multiple Data Types for Evaluating
+Population Trends and Habitat Usage.”</span> <em>ICES Journal of Marine
+Science</em> 76 (6): 1748–61. <a href="https://doi.org/10.1093/icesjms/fsz075">https://doi.org/10.1093/icesjms/fsz075</a>.
+</div>
+<div id="ref-gruss_spatially_2023" class="csl-entry">
+Grüss, Arnaud, James T. Thorson, Owen F. Anderson, Richard L.
+O’Driscoll, Madison Heller-Shipley, and Scott Goodman. 2023.
+<span>“Spatially Varying Catchability for Integrating Research Survey
+Data with Other Data Sources: Case Studies Involving Observer Samples,
+Industry-Cooperative Surveys, and Predators as Samplers.”</span>
+<em>Canadian Journal of Fisheries and Aquatic Sciences</em> 80 (10):
+1595–615. <a href="https://doi.org/10.1139/cjfas-2023-0051">https://doi.org/10.1139/cjfas-2023-0051</a>.
+</div>
+<div id="ref-lindgren_continuous_2012" class="csl-entry">
+Lindgren. 2012. <span>“Continuous Domain Spatial Models in
+<span>R</span>-<span>INLA</span>.”</span> <em>The ISBA Bulletin</em> 19
+(4): 14–20.
+</div>
+<div id="ref-lindgren_fmesher_2023" class="csl-entry">
+Lindgren, Finn. 2023. <span>“Fmesher: <span>Triangle</span>
+<span>Meshes</span> and <span>Related</span> <span>Geometry</span>
+<span>Tools</span>.”</span> <a href="https://CRAN.R-project.org/package=fmesher">https://CRAN.R-project.org/package=fmesher</a>.
+</div>
+<div id="ref-lindgren_explicit_2011" class="csl-entry">
+Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. <span>“An
+Explicit Link Between <span>Gaussian</span> Fields and
+<span>Gaussian</span> <span>Markov</span> Random Fields: The Stochastic
+Partial Differential Equation Approach.”</span> <em>Journal of the Royal
+Statistical Society: Series B (Statistical Methodology)</em> 73 (4):
+423–98. <a href="https://doi.org/10.1111/j.1467-9868.2011.00777.x">https://doi.org/10.1111/j.1467-9868.2011.00777.x</a>.
+</div>
+<div id="ref-thorson_three_2018" class="csl-entry">
+Thorson, James T. 2018. <span>“Three Problems with the Conventional
+Delta-Model for Biomass Sampling Data, and a Computationally Efficient
+Alternative.”</span> <em>Canadian Journal of Fisheries and Aquatic
+Sciences</em> 75 (9): 1369–82. <a href="https://doi.org/10.1139/cjfas-2017-0266">https://doi.org/10.1139/cjfas-2017-0266</a>.
+</div>
+<div id="ref-thorson_measuring_2019" class="csl-entry">
+———. 2019. <span>“Measuring the Impact of Oceanographic Indices on
+Species Distribution Shifts: <span>The</span> Spatially Varying Effect
+of Cold-Pool Extent in the Eastern <span>Bering</span>
+<span>Sea</span>.”</span> <em>Limnology and Oceanography</em> 64 (6):
+2632–45. <a href="https://doi.org/10.1002/lno.11238">https://doi.org/10.1002/lno.11238</a>.
+</div>
+<div id="ref-thorson_tinyvast_2025" class="csl-entry">
+Thorson, James T., Sean C. Anderson, Pamela Goddard, and Christopher N.
+Rooper. 2025. <span>“<span class="nocase">tinyVAST</span>:
+<span>R</span> <span>Package</span> <span>With</span> an
+<span>Expressive</span> <span>Interface</span> to <span>Specify</span>
+<span>Lagged</span> and <span>Simultaneous</span> <span>Effects</span>
+in <span>Multivariate</span> <span>Spatio</span>-<span>Temporal</span>
+<span>Models</span>.”</span> <em>Global Ecology and Biogeography</em> 34
+(4): e70035. <a href="https://doi.org/10.1111/geb.70035">https://doi.org/10.1111/geb.70035</a>.
+</div>
+<div id="ref-thorson_dynamic_2024" class="csl-entry">
+Thorson, James T., Alexander G. Andrews III, Timothy E. Essington, and
+Scott I. Large. 2024. <span>“Dynamic Structural Equation Models
+Synthesize Ecosystem Dynamics Constrained by Ecological
+Mechanisms.”</span> <em>Methods in Ecology and Evolution</em> 15 (4):
+744–55. <a href="https://doi.org/10.1111/2041-210X.14289">https://doi.org/10.1111/2041-210X.14289</a>.
+</div>
+<div id="ref-thorson_spatially_2023" class="csl-entry">
+Thorson, James T., Cheryl L. Barnes, Sarah T. Friedman, Janelle L.
+Morano, and Margaret C. Siple. 2023. <span>“Spatially Varying
+Coefficients Can Improve Parsimony and Descriptive Power for Species
+Distribution Models.”</span> <em>Ecography</em> 2023 (5): e06510. <a href="https://doi.org/10.1111/ecog.06510">https://doi.org/10.1111/ecog.06510</a>.
+</div>
+<div id="ref-thorson_joint_2016" class="csl-entry">
+Thorson, James T., James N. Ianelli, Elise A. Larsen, Leslie Ries, Mark
+D. Scheuerell, Cody Szuwalski, and Elise F. Zipkin. 2016. <span>“Joint
+Dynamic Species Distribution Models: A Tool for Community Ordination and
+Spatio-Temporal Monitoring.”</span> <em>Global Ecology and
+Biogeography</em> 25 (9): 1144–58. <a href="https://doi.org/10.1111/geb.12464">https://doi.org/10.1111/geb.12464</a>.
+</div>
+<div id="ref-thorson_importance_2014" class="csl-entry">
+Thorson, James T., Hans J. Skaug, Kasper Kristensen, Andrew O. Shelton,
+Eric J. Ward, John H. Harms, and James A. Benante. 2014. <span>“The
+Importance of Spatial Models for Estimating the Strength of Density
+Dependence.”</span> <em>Ecology</em> 96 (5): 1202–12. <a href="https://doi.org/10.1890/14-0739.1">https://doi.org/10.1890/14-0739.1</a>.
+</div>
+<div id="ref-thorson_spatio-temporal_2024" class="csl-entry">
+Thorson, James, and Kasper Kristensen. 2024.
+<em>Spatio-<span>Temporal</span> <span>Models</span> for
+<span>Ecologists</span></em>. 1st edition. Boca Raton, FL: Chapman;
+Hall/CRC.
+</div>
+<div id="ref-thorson_spatial_2015" class="csl-entry">
+Thorson, Mark D. Scheuerell, Andrew O. Shelton, Kevin E. See, Hans J.
+Skaug, and Kasper Kristensen. 2015. <span>“Spatial Factor Analysis: A
+New Tool for Estimating Joint Species Distributions and Correlations in
+Species Range.”</span> <em>Methods in Ecology and Evolution</em> 6 (6):
+627–37. <a href="https://doi.org/10.1111/2041-210X.12359">https://doi.org/10.1111/2041-210X.12359</a>.
+</div>
+<div id="ref-ver_hoef_relationship_2018" class="csl-entry">
+Ver Hoef, Jay M., Ephraim M. Hanks, and Mevin B. Hooten. 2018. <span>“On
+the Relationship Between Conditional (<span>CAR</span>) and Simultaneous
+(<span>SAR</span>) Autoregressive Models.”</span> <em>Spatial
+Statistics</em> 25 (June): 68–85. <a href="https://doi.org/10.1016/j.spasta.2018.04.006">https://doi.org/10.1016/j.spasta.2018.04.006</a>.
+</div>
+<div id="ref-wood_generalized_2006" class="csl-entry">
+Wood, S. N. 2006. <em>Generalized Additive Models: An Introduction with
+<span>R</span></em>. 1st ed. Boca Raton, FL: Chapman; Hall/CRC Press.
+</div>
+</div>
 </div>
 
 
