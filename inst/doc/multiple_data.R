@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
   eval = EVAL,
   purl = EVAL
 )
+start_time = Sys.time()
 # Install locally
 #  devtools::install_local( R'(C:\Users\James.Thorson\Desktop\Git\tinyVAST)', force=TRUE )
 # Build
@@ -117,4 +118,7 @@ plot( plot_grid,
 ggplot( data.frame("Year"=colnames(index),"Est"=index[1,],"SE"=index[2,]) ) + 
   geom_point( aes(x=Year, y=Est)) + 
   geom_errorbar( aes(x=Year, ymin=Est-SE, ymax=Est+SE) )
+
+## ----include = FALSE, warning=FALSE, message=FALSE----------------------------
+run_time = Sys.time() - start_time
 

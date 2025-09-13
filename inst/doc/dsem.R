@@ -7,6 +7,7 @@ knitr::opts_chunk$set(
   eval = EVAL,
   purl = EVAL
 )
+start_time = Sys.time()
 # Install locally
 #  devtools::install_local( R'(C:\Users\James.Thorson\Desktop\Git\tinyVAST)', force=TRUE )
 # Build and PDF
@@ -78,4 +79,7 @@ knitr::kable( summary(mydsem), digits=3 )
 B = matrix( mydsem$obj$env$parList()$beta_z[1:4], nrow=2,
             dimnames=list(colnames(isle_royale[,2:3]),colnames(isle_royale[,2:3])) )
 knitr::kable( B, digits=3)
+
+## ----include = FALSE, warning=FALSE, message=FALSE----------------------------
+run_time = Sys.time() - start_time
 

@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
   eval = EVAL,
   purl = EVAL
 )
+start_time = Sys.time()
 # Install locally
 #  devtools::install_local( R'(C:\Users\James.Thorson\Desktop\Git\tinyVAST)', force=TRUE )
 # Build
@@ -115,4 +116,7 @@ plotPartial( mypartial )
 ## ----eval=TRUE, echo=TRUE, message=FALSE, fig.width=6, fig.height=6-----------
 out = visreg2d( myfit, "x", "y", cond=list("group"=1), plot=FALSE )
 plot( out, main="f(x,y) for group=1")
+
+## ----include = FALSE, warning=FALSE, message=FALSE----------------------------
+run_time = Sys.time() - start_time
 

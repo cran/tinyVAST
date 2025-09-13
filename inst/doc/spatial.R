@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
   eval = EVAL,
   purl = EVAL
 )
+start_time = Sys.time()
 # Install locally
 #  devtools::install_local( R'(C:\Users\James.Thorson\Desktop\Git\tinyVAST)', force=TRUE )
 # Build
@@ -123,4 +124,7 @@ p = data.frame( newdata, as.data.frame(p) )
 ggplot(p, aes(x=w, y=fit,
   ymin = fit - 1.96 * se.fit, ymax = fit + 1.96 * se.fit)) +
   geom_line() + geom_ribbon(alpha = 0.4)
+
+## ----include = FALSE, warning=FALSE, message=FALSE----------------------------
+run_time = Sys.time() - start_time
 

@@ -7,6 +7,7 @@ knitr::opts_chunk$set(
   eval = EVAL,
   purl = EVAL
 )
+start_time = Sys.time()
 # Install locally
 #  devtools::install_local( R'(C:\Users\James.Thorson\Desktop\Git\tinyVAST)', force=TRUE )
 # Build
@@ -152,4 +153,7 @@ dimnames(Lhat_cf) = list( paste0("Var ", 1:nrow(Lhat_cf)),
                        paste0("Factor ", 1:ncol(Lhat_cf)) )
 knitr::kable( Lhat_cf,
               digits=2, caption="Rotated estimated loadings with full rank" )
+
+## ----include = FALSE, warning=FALSE, message=FALSE----------------------------
+run_time = Sys.time() - start_time
 
