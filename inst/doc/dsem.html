@@ -402,7 +402,7 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt;         2:3]))</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; Run time: </span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.349545 secs</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.493706 secs</span></span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; Family: </span></span>
 <span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; $obs</span></span>
@@ -424,8 +424,8 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; beta_z     -0.01285890 5.063467e-02</span></span>
 <span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; beta_z      0.37727131 3.504314e-02</span></span>
 <span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; beta_z      0.17062266 1.584742e-02</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; log_sigma -12.62369789 2.032840e+04</span></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 3.603845e-05 </span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; log_sigma -12.62530538 2.004893e+04</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 3.635044e-05 </span></span>
 <span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; Proportion conditional deviance explained: </span></span>
 <span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
@@ -440,7 +440,7 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt; 6     2 wolves wolves         6  &lt;NA&gt;   0  0.37727131 0.03504314 10.7659099</span></span>
 <span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt; 7     2  moose  moose         7  &lt;NA&gt;   0  0.17062266 0.01584742 10.7665881</span></span>
 <span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt;        p_value</span></span>
-<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; 1 2.812223e-26</span></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; 1 2.812224e-26</span></span>
 <span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt; 2 9.115511e-01</span></span>
 <span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt; 3 1.270389e-04</span></span>
 <span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 4 8.189516e-34</span></span>
@@ -452,15 +452,17 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="co">#&gt;           Estimate Std_Error  z_value       p_value</span></span>
 <span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="co">#&gt; varwolves 3.325262 0.2483494 13.38945  6.969636e-41</span></span>
 <span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; varmoose  6.441653 0.2116035 30.44210 1.524035e-203</span></span>
-<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a></span>
-<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co"># Deviance explained relative to both intercepts</span></span>
-<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co"># Note that a process-error-only estimate with have devexpl -&gt; 1</span></span>
-<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="fu">deviance_explained</span>( mytiny, </span>
-<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a>                    <span class="at">null_formula =</span> logn <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> var )</span>
-<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co"># See summary</span></span>
-<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">summary</span>(mytiny,<span class="st">&quot;spacetime_term&quot;</span>), <span class="at">digits=</span><span class="dv">3</span> )</span></code></pre></div>
+<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; Sanity check:</span></span>
+<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co"># Deviance explained relative to both intercepts</span></span>
+<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co"># Note that a process-error-only estimate with have devexpl -&gt; 1</span></span>
+<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="fu">deviance_explained</span>( mytiny, </span>
+<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a>                    <span class="at">null_formula =</span> logn <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> var )</span>
+<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co"># See summary</span></span>
+<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">summary</span>(mytiny,<span class="st">&quot;spacetime_term&quot;</span>), <span class="at">digits=</span><span class="dv">3</span> )</span></code></pre></div>
 <table>
 <colgroup>
 <col width="8%" />
@@ -613,34 +615,35 @@ and moose abundance on Isle Royale.</p>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;   Coefficient_name Number_of_coefficients   Type</span></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 1           beta_z                      7  Fixed</span></span>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 2        lnsigma_j                      2  Fixed</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 3             x_tj                    122 Random</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>mydsem</span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; $par</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;       beta_z       beta_z       beta_z       beta_z       beta_z       beta_z </span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;   0.84199231   0.06629794  -0.05542667   1.02617142   0.37035485   0.38054542 </span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt;       beta_z    lnsigma_j    lnsigma_j </span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;   0.82581950 -11.71750317 -12.72180788 </span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; $objective</span></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; [1] 102.5012</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;logarithm&quot;)</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; $convergence</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; $iterations</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; [1] 71</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; $evaluations</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; function gradient </span></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt;      104       72 </span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; $message</span></span>
-<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; [1] &quot;relative convergence (4)&quot;</span></span>
-<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co"># See summary</span></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">summary</span>(mydsem), <span class="at">digits=</span><span class="dv">3</span> )</span></code></pre></div>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 3             mu_j                      2 Random</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 4             x_tj                    122 Random</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>mydsem</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; $par</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;        beta_z        beta_z        beta_z        beta_z        beta_z </span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt;   0.895834720   0.007358847  -0.124879928   0.874884847  -0.014394603 </span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;        beta_z        beta_z     lnsigma_j     lnsigma_j </span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;   0.378522244   0.172997994 -18.718649672 -12.675895076 </span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; $objective</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; [1] 7.739638</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;logarithm&quot;)</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; $convergence</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; $iterations</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; [1] 72</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; $evaluations</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; function gradient </span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;       85       73 </span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; $message</span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; [1] &quot;relative convergence (4)&quot;</span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co"># See summary</span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">summary</span>(mydsem), <span class="at">digits=</span><span class="dv">3</span> )</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="22%" />
@@ -676,7 +679,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">wolves</td>
 <td align="left">wolves</td>
 <td align="left">1</td>
-<td align="right">0.842</td>
+<td align="right">0.896</td>
 </tr>
 <tr class="even">
 <td align="left">moose -&gt; wolves</td>
@@ -687,7 +690,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">moose</td>
 <td align="left">wolves</td>
 <td align="left">1</td>
-<td align="right">0.066</td>
+<td align="right">0.007</td>
 </tr>
 <tr class="odd">
 <td align="left">wolves -&gt; moose</td>
@@ -698,7 +701,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">wolves</td>
 <td align="left">moose</td>
 <td align="left">1</td>
-<td align="right">-0.055</td>
+<td align="right">-0.125</td>
 </tr>
 <tr class="even">
 <td align="left">moose -&gt; moose</td>
@@ -709,7 +712,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">moose</td>
 <td align="left">moose</td>
 <td align="left">1</td>
-<td align="right">1.026</td>
+<td align="right">0.875</td>
 </tr>
 <tr class="odd">
 <td align="left">wolves &lt;-&gt; moose</td>
@@ -720,7 +723,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">wolves</td>
 <td align="left">moose</td>
 <td align="left">2</td>
-<td align="right">0.370</td>
+<td align="right">-0.014</td>
 </tr>
 <tr class="even">
 <td align="left">wolves &lt;-&gt; wolves</td>
@@ -731,7 +734,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">wolves</td>
 <td align="left">wolves</td>
 <td align="left">2</td>
-<td align="right">0.381</td>
+<td align="right">0.379</td>
 </tr>
 <tr class="odd">
 <td align="left">moose &lt;-&gt; moose</td>
@@ -742,7 +745,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">moose</td>
 <td align="left">moose</td>
 <td align="left">2</td>
-<td align="right">0.826</td>
+<td align="right">0.173</td>
 </tr>
 </tbody>
 </table>
@@ -758,17 +761,17 @@ and moose abundance on Isle Royale.</p>
 <tbody>
 <tr class="odd">
 <td align="left">wolves</td>
-<td align="right">0.842</td>
-<td align="right">-0.055</td>
+<td align="right">0.896</td>
+<td align="right">-0.125</td>
 </tr>
 <tr class="even">
 <td align="left">moose</td>
-<td align="right">0.066</td>
-<td align="right">1.026</td>
+<td align="right">0.007</td>
+<td align="right">0.875</td>
 </tr>
 </tbody>
 </table>
-<p>Runtime for this vignette: 1.28 secs</p>
+<p>Runtime for this vignette: 1.89 secs</p>
 <div id="works-cited" class="section level1 unnumbered">
 <h1 class="unnumbered">Works cited</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
