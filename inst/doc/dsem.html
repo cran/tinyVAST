@@ -402,7 +402,7 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt;         2:3]))</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; Run time: </span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.5357699 secs</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Time difference of 0.784369 secs</span></span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; Family: </span></span>
 <span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; $obs</span></span>
@@ -424,8 +424,8 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; beta_z     -0.01285890 5.063467e-02</span></span>
 <span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; beta_z      0.37727131 3.504314e-02</span></span>
 <span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; beta_z      0.17062266 1.584742e-02</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; log_sigma -12.62369789 2.032840e+04</span></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 3.603845e-05 </span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; log_sigma -12.62530538 2.004893e+04</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 3.635044e-05 </span></span>
 <span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; Proportion conditional deviance explained: </span></span>
 <span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
@@ -440,7 +440,7 @@ and moose abundance on Isle Royale.</p>
 <span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt; 6     2 wolves wolves         6  &lt;NA&gt;   0  0.37727131 0.03504314 10.7659099</span></span>
 <span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt; 7     2  moose  moose         7  &lt;NA&gt;   0  0.17062266 0.01584742 10.7665881</span></span>
 <span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt;        p_value</span></span>
-<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; 1 2.812223e-26</span></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; 1 2.812224e-26</span></span>
 <span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt; 2 9.115511e-01</span></span>
 <span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt; 3 1.270389e-04</span></span>
 <span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 4 8.189516e-34</span></span>
@@ -604,25 +604,25 @@ and moose abundance on Isle Royale.</p>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Keep in wide-form</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>dsem_data <span class="ot">=</span> <span class="fu">ts</span>( <span class="fu">log</span>(isle_royale[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]), <span class="at">start=</span><span class="dv">1959</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>Family <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>, <span class="st">&quot;normal&quot;</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># fit without delta0</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># SEs aren&#39;t available because measurement errors goes to zero</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>mydsem <span class="ot">=</span> dsem<span class="sc">::</span><span class="fu">dsem</span>( <span class="at">sem =</span> dsem,</span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>             <span class="at">tsdata =</span> dsem_data,</span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>             <span class="at">control =</span> <span class="fu">dsem_control</span>(<span class="at">getsd=</span><span class="cn">FALSE</span>),</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>             <span class="at">family =</span> Family )</span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;   Coefficient_name Number_of_coefficients   Type</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 1           beta_z                      7  Fixed</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 2        lnsigma_j                      2  Fixed</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 3             mu_j                      2 Random</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 4             x_tj                    122 Random</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># fit without delta0</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Fitting with family = &quot;fixed&quot; seems stable on CRAN checks</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>mydsem <span class="ot">=</span> dsem<span class="sc">::</span><span class="fu">dsem</span>( </span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">sem =</span> dsem,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="at">tsdata =</span> dsem_data,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">dsem_control</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="at">getsd =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  ), </span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;   Coefficient_name Number_of_coefficients   Type</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 1           beta_z                      7  Fixed</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 2             mu_j                      2 Random</span></span>
 <span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>mydsem</span>
 <span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; $par</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;        beta_z        beta_z        beta_z        beta_z        beta_z </span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt;   0.895834720   0.007358847  -0.124879928   0.874884847  -0.014394603 </span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;        beta_z        beta_z     lnsigma_j     lnsigma_j </span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;   0.378522244   0.172997994 -15.157006681 -12.493055799 </span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;       beta_z       beta_z       beta_z       beta_z       beta_z       beta_z </span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt;  0.895834720  0.007358847 -0.124879928  0.874884847 -0.014394603  0.378522244 </span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;       beta_z </span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;  0.172997994 </span></span>
 <span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; $objective</span></span>
 <span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; [1] 7.739638</span></span>
@@ -633,11 +633,11 @@ and moose abundance on Isle Royale.</p>
 <span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
 <span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; $iterations</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; [1] 77</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; [1] 41</span></span>
 <span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; $evaluations</span></span>
 <span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; function gradient </span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;       96       78 </span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;       56       42 </span></span>
 <span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; $message</span></span>
 <span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; [1] &quot;relative convergence (4)&quot;</span></span>
@@ -745,7 +745,7 @@ and moose abundance on Isle Royale.</p>
 <td align="left">moose</td>
 <td align="left">moose</td>
 <td align="left">2</td>
-<td align="right">0.173</td>
+<td align="right">0.172</td>
 </tr>
 </tbody>
 </table>
@@ -771,7 +771,7 @@ and moose abundance on Isle Royale.</p>
 </tr>
 </tbody>
 </table>
-<p>Runtime for this vignette: 2.2 secs</p>
+<p>Runtime for this vignette: 2.43 secs</p>
 <div id="works-cited" class="section level1 unnumbered">
 <h1 class="unnumbered">Works cited</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
