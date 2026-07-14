@@ -150,6 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 div.csl-bib-body { }
 div.csl-entry {
 clear: both;
+margin-bottom: 0em;
 }
 .hanging div.csl-entry {
 margin-left:2em;
@@ -510,7 +511,7 @@ response for each manifest variable:</p>
 <span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a><span class="co">#&gt;     variables = c(&quot;f1&quot;, &quot;f2&quot;, 1:n_c), distribution_column = &quot;dist&quot;)</span></span>
 <span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a><span class="co">#&gt; Run time: </span></span>
-<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a><span class="co">#&gt; Time difference of 1.526584 secs</span></span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a><span class="co">#&gt; Time difference of 2.849502 secs</span></span>
 <span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a><span class="co">#&gt; Family: </span></span>
 <span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a><span class="co">#&gt; $obs</span></span>
@@ -540,7 +541,7 @@ response for each manifest variable:</p>
 <span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a><span class="co">#&gt; log_sigma -0.52203929 0.06761656</span></span>
 <span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a><span class="co">#&gt; log_sigma  0.21850709 0.13313013</span></span>
 <span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a><span class="co">#&gt; log_kappa -0.26762174 0.21031509</span></span>
-<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 0.002544268 </span></span>
+<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a><span class="co">#&gt; Maximum gradient component: 0.00254427 </span></span>
 <span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a><span class="co">#&gt; Proportion conditional deviance explained: </span></span>
 <span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a><span class="co">#&gt; [1] 0.5312474</span></span>
@@ -641,7 +642,8 @@ comparison):</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Extract and rotate estimated loadings</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>Lhat_cf <span class="ot">=</span> <span class="fu">matrix</span>( <span class="dv">0</span>, <span class="at">nrow=</span>n_c, <span class="at">ncol=</span><span class="dv">2</span> )</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>Lhat_cf[<span class="fu">lower.tri</span>(Lhat_cf,<span class="at">diag=</span><span class="cn">TRUE</span>)] <span class="ot">=</span> <span class="fu">as.list</span>(out<span class="sc">$</span>sdrep, <span class="at">what=</span><span class="st">&quot;Estimate&quot;</span>)<span class="sc">$</span>theta_z</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>Lhat_cf <span class="ot">=</span> <span class="fu">rotate_pca</span>( <span class="at">L_tf=</span>Lhat_cf, <span class="at">order=</span><span class="st">&quot;decreasing&quot;</span> )<span class="sc">$</span>L_tf</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>Lhat_cf <span class="ot">=</span> <span class="fu">rotate_pca</span>( <span class="at">L_tf=</span>Lhat_cf, <span class="at">order=</span><span class="st">&quot;decreasing&quot;</span> )<span class="sc">$</span>L_tf</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; Warning in sqrt(Eigen$values): NaNs produced</span></span></code></pre></div>
 <p>Where we can compared the estimated and true loadings matrices:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">dimnames</span>(Lhat_cf) <span class="ot">=</span> <span class="fu">list</span>( <span class="fu">paste0</span>(<span class="st">&quot;Var &quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Lhat_cf)),</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                       <span class="fu">paste0</span>(<span class="st">&quot;Factor &quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(Lhat_cf)) )</span>
@@ -724,7 +726,8 @@ variation is also captured:</p>
 <span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a>Lhat_cf[<span class="fu">lower.tri</span>(Lhat_cf,<span class="at">diag=</span><span class="cn">TRUE</span>)] <span class="ot">=</span> <span class="fu">as.list</span>(out<span class="sc">$</span>sdrep, <span class="at">what=</span><span class="st">&quot;Estimate&quot;</span>)<span class="sc">$</span>theta_z</span>
 <span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; Warning in Lhat_cf[lower.tri(Lhat_cf, diag = TRUE)] = as.list(out$sdrep, :</span></span>
 <span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; number of items to replace is not a multiple of replacement length</span></span>
-<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a>Lhat_cf <span class="ot">=</span> <span class="fu">rotate_pca</span>( <span class="at">L_tf=</span>Lhat_cf, <span class="at">order=</span><span class="st">&quot;decreasing&quot;</span> )<span class="sc">$</span>L_tf</span></code></pre></div>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a>Lhat_cf <span class="ot">=</span> <span class="fu">rotate_pca</span>( <span class="at">L_tf=</span>Lhat_cf, <span class="at">order=</span><span class="st">&quot;decreasing&quot;</span> )<span class="sc">$</span>L_tf</span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; Warning in sqrt(Eigen$values): NaNs produced</span></span></code></pre></div>
 <p>Where we can again compared the estimated and true loadings
 matrices:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">dimnames</span>(Lhat_cf) <span class="ot">=</span> <span class="fu">list</span>( <span class="fu">paste0</span>(<span class="st">&quot;Var &quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Lhat_cf)),</span>
@@ -768,11 +771,11 @@ matrices:</p>
 </tr>
 </tbody>
 </table>
-<p>Runtime for this vignette: 19.39 secs</p>
+<p>Runtime for this vignette: 10.27 secs</p>
 </div>
 <div id="works-cited" class="section level1 unnumbered">
 <h1 class="unnumbered">Works cited</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-thorson_spatial_2015" class="csl-entry">
 Thorson, Mark D. Scheuerell, Andrew O. Shelton, Kevin E. See, Hans J.
 Skaug, and Kasper Kristensen. 2015. <span>“Spatial Factor Analysis: A
